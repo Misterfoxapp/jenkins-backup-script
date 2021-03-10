@@ -58,7 +58,7 @@ function main() {
   fi
 
   rm -rf "${ARC_DIR}" "{$TMP_TAR_NAME}"
-  for plugin in plugins jobs users secrets nodes; do
+  for plugin in plugins jobs users secrets nodes init.groovy.d; do
     mkdir -p "${ARC_DIR}/${plugin}"
   done
 
@@ -81,6 +81,10 @@ function main() {
 
   if [ "$(ls -A ${JENKINS_HOME}/nodes/)" ] ; then
     cp -R "${JENKINS_HOME}/nodes/"* "${ARC_DIR}/nodes"
+  fi
+
+  if [ "$(ls -A ${JENKINS_HOME}/init.groovy.d/)" ] ; then
+    cp -R "${JENKINS_HOME}/init.groovy.d/"* "${ARC_DIR}/init.groovy.d"
   fi
 
   if [ "$(ls -A ${JENKINS_HOME}/jobs/)" ] ; then
